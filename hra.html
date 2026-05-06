@@ -9,6 +9,10 @@
             --primary: #ffcc00; --danger: #ff4757; --success: #2ed573;
             --bg: #0f0c29; --panel: rgba(255, 255, 255, 0.05); --bonus: #6a0dad;
         }
+
+        /* Zajištění správného výpočtu šířek */
+        * { box-sizing: border-box; }
+
         body { 
             font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); 
             color: white; display: flex; flex-direction: column; align-items: center; padding: 10px; margin: 0; min-height: 100vh; transition: background 0.5s;
@@ -17,10 +21,11 @@
         
         #setup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; display: flex; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; backdrop-filter: blur(5px); }
         .setup-card { background: #1a1a1a; padding: 30px; border-radius: 20px; border: 2px solid var(--primary); width: 100%; max-width: 400px; text-align: center; box-shadow: 0 0 30px rgba(255, 204, 0, 0.3); }
-        .setup-card label { display: block; margin-bottom: 20px; color: #ddd; font-weight: bold; font-size: 16px; text-align: left; }
-        .setup-card input { width: 100%; padding: 12px; margin-top: 8px; background: #222; color: white; border: 1px solid #444; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
         
-        /* RESTOROVANÝ STYL TLAČÍTKA "VSTOUPIT DO HERNY" */
+        /* Úprava pro textová pole v overlay na mobilu */
+        .setup-card input { width: 100%; padding: 12px; margin-top: 8px; background: #222; color: white; border: 1px solid #444; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
+        .setup-card label { display: block; margin-bottom: 20px; color: #ddd; font-weight: bold; font-size: 16px; text-align: left; }
+        
         .setup-card button { 
             width: 100%; padding: 15px; border-radius: 12px; border: none; cursor: pointer;
             background: linear-gradient(to bottom, #ffcc00 0%, #ff9900 100%);
@@ -30,14 +35,38 @@
         }
         .setup-card button:active { box-shadow: 0 2px 0 #cc7a00; transform: translateY(3px); }
 
-        .main-layout { display: flex; gap: 20px; max-width: 1100px; width: 100%; flex-direction: row; margin-top: 20px; }
+        /* RESPONSIVNÍ LAYOUT */
+        .main-layout { 
+            display: flex; 
+            gap: 20px; 
+            max-width: 1100px; 
+            width: 100%; 
+            flex-direction: row; 
+            margin-top: 20px; 
+        }
+
+        /* Mobilní zobrazení (pod sebou) */
+        @media (max-width: 900px) {
+            .main-layout { flex-direction: column; align-items: center; }
+            .side-panel { width: 100%; order: 2; }
+            .game-container { width: 100%; order: 1; padding: 15px; }
+            h1 { font-size: 1.5rem; text-align: center; }
+        }
+
         .side-panel { background: var(--panel); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); flex: 1; min-width: 260px; display: flex; flex-direction: column; }
         .side-panel button { width: 100%; margin-bottom: 10px; font-weight: bold; padding: 15px; border-radius: 10px; cursor: pointer; border: none; text-transform: uppercase; transition: 0.3s; }
         
-        .game-container { background: radial-gradient(circle at center, #1e1e1e 0%, #0a0a0a 100%); padding: 25px; border-radius: 30px; border: 8px solid #2c2c2c; flex: 2; text-align: center; position: relative; }
+        .game-container { background: radial-gradient(circle at center, #1e1e1e 0%, #0a0a0a 100%); padding: 25px; border-radius: 30px; border: 8px solid #2c2c2c; flex: 2; text-align: center; position: relative; max-width: 100%; }
         .game-container.bonus-active { border-color: var(--bonus); box-shadow: 0 0 40px var(--bonus); }
         
-        .reels-grid { display: flex; justify-content: space-around; background: #000; padding: 15px; border-radius: 15px; border: 3px solid #444; position: relative; height: 330px; overflow: hidden; gap: 10px; }
+        .reels-grid { display: flex; justify-content: space-around; background: #000; padding: 15px; border-radius: 15px; border: 3px solid #444; position: relative; height: 330px; overflow: hidden; gap: 10px; max-width: 100%; }
+        
+        /* Přizpůsobení velikosti válců pro velmi malé displeje */
+        @media (max-width: 450px) {
+            .reels-grid { padding: 5px; gap: 5px; }
+            .symbol { font-size: 45px; }
+        }
+
         .reel { flex: 1; height: 330px; background: #fff; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid #333; }
         .reel-symbols { position: absolute; width: 100%; display: flex; flex-direction: column; will-change: transform; top: 0; }
         .symbol { font-size: 60px; height: 110px; line-height: 110px; width: 100%; text-align: center; color: black; border-bottom: 1px solid #ddd; background: white; box-sizing: border-box; }
@@ -48,11 +77,12 @@
         .highlight-win { background: #fffbe6 !important; box-shadow: inset 0 0 30px var(--primary); animation: pulse-win 0.5s infinite alternate; }
         @keyframes pulse-win { from { opacity: 1; } to { opacity: 0.8; } }
         
-        .controls-row { display: flex; gap: 10px; margin-top: 25px; align-items: center; justify-content: center; }
+        .controls-row { display: flex; gap: 10px; margin-top: 25px; align-items: center; justify-content: center; flex-wrap: wrap; }
         
         #spin-btn { 
             background: linear-gradient(to bottom, #ffcc00 0%, #ff9900 100%); 
             color: black; font-size: 26px; font-weight: bold; padding: 18px; border-radius: 12px; border: none; cursor: pointer; flex-grow: 2; text-transform: uppercase; box-shadow: 0 5px 0 #cc7a00, 0 8px 15px rgba(0,0,0,0.4); transition: all 0.1s;
+            min-width: 150px;
         }
         #spin-btn:active { box-shadow: 0 2px 0 #cc7a00; transform: translateY(3px); }
         #spin-btn:disabled { background: #444; color: #777; box-shadow: none; transform: none; cursor: default; }
@@ -66,7 +96,7 @@
 <body>
 
 <div id="edu-intro-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 200; display: flex; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; backdrop-filter: blur(8px); overflow-y: auto;">
-    <div class="setup-card" style="max-width: 600px; text-align: left; padding: 40px; line-height: 1.6;">
+    <div class="setup-card" style="max-width: 600px; text-align: left; padding: 30px; line-height: 1.6;">
         <h2 style="color:var(--primary); text-align: center; margin-bottom: 20px;">DŮLEŽITÉ UPOZORNĚNÍ</h2>
         
         <p>Tato aplikace je <strong>edukativní simulátor</strong>. Jejím cílem není simulovat hazardní hru pro zábavu, ale demonstrovat mechanismy, které činí výherní automaty atraktivními a potenciálně návykovými.</p>
@@ -79,33 +109,28 @@
         </ul>
 
         <h3 style="color:var(--primary); font-size: 1.1em;">Tabulka pravděpodobností (1 : X):</h3>
-        <table style="width: 100%; font-size: 0.85em; color: #ddd; border-collapse: collapse; margin-bottom: 20px; text-align: center;">
-            <tr style="border-bottom: 1px solid #444;">
-                <th style="padding: 5px;">Symbol</th><th>Pravděpodobnost</th><th>Výhra</th>
-            </tr>
-            <tr><td>7️⃣ Jackpot</td><td>1 : 296 296</td><td>2000x</td></tr>
-            <tr><td>⭐ Bonus</td><td>1 : 186</td><td>10 FS</td></tr>
-            <tr><td>🍒 Třešně</td><td>1 : 11</td><td>0.8x</td></tr>
-        </table>
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; font-size: 0.85em; color: #ddd; border-collapse: collapse; margin-bottom: 20px; text-align: center; min-width: 300px;">
+                <tr style="border-bottom: 1px solid #444;">
+                    <th style="padding: 5px;">Symbol</th><th>Pravděpodobnost</th><th>Výhra</th>
+                </tr>
+                <tr><td>7️⃣ Jackpot</td><td>1 : 296 296</td><td>2000x</td></tr>
+                <tr><td>⭐ Bonus</td><td>1 : 186</td><td>10 FS</td></tr>
+                <tr><td>🍒 Třešně</td><td>1 : 11</td><td>0.8x</td></tr>
+            </table>
+        </div>
 
         <p style="font-size: 0.95em;">V následujícím kroku budete vyzváni k <strong>nastavení herních limitů</strong>. V reálném prostředí jsou provozovatelé ze zákona povinni vám tyto limity nabídnout jako nástroj zodpovědného hraní.</p>
 
-        <button onclick="proceedToLimits()" style="
-            width: 100%; padding: 18px; border-radius: 12px; border: none; cursor: pointer;
-            background: linear-gradient(to bottom, #ffcc00 0%, #ff9900 100%);
-            color: black; font-weight: bold; font-size: 18px; text-transform: uppercase;
-            box-shadow: 0 5px 0 #cc7a00, 0 8px 15px rgba(0,0,0,0.4); transition: all 0.1s;
-            margin-top: 10px;">
+        <button onclick="proceedToLimits()">
             ROZUMÍM A CHCI NASTAVIT LIMITY
         </button>
     </div>
 </div>
 
 <script>
-    // 2. FUNKCE PRO PŘEPNUTÍ OKEN (Vlož kamkoliv do sekce <script>)
     function proceedToLimits() {
         document.getElementById('edu-intro-overlay').style.display = 'none';
-        // Okno se setupem (id="setup-overlay") už v kódu máš, toto ho odhalí, pokud by bylo skryté
         document.getElementById('setup-overlay').style.display = 'flex';
     }
 </script>
@@ -187,7 +212,6 @@
         }
         function playTriggerSound() { [261,329,392,523,659].forEach((f,i)=>setTimeout(()=>playTone(f,0.5),i*80)); }
 
-        // --- MATEMATIKA v8.4 (Balanced) ---
         const reelWeights = [
             {'🍒':450, '🍋':220, '🔔':100, '💎':40, '7️⃣':15, '⭐':175}, 
             {'🍒':450, '🍋':220, '🔔':100, '💎':40, '7️⃣':15, '⭐':175},  
@@ -255,23 +279,22 @@
 
             if(trigger) {
                 freeSpinsLeft += 10; playTriggerSound();
-                document.getElementById('log').innerHTML = `<b style="color:var(--bonus)">BONUS: 10 FREE SPINŮ!</b> Bonus se zdá jako dárek – pár protočení navíc, které máš od herny gratis. Ve skutečnosti jde ale o výhru, která je automaticky vložena do dalších protočení. Každý automat je totiž nastaven tak, aby část z celkových vložených peněz, které jsou určeny na výhry (RTP), nevyplatil jako výhru, ale právě jako bonus.`;
+                document.getElementById('log').innerHTML = `<b style="color:var(--bonus)">BONUS: 10 FREE SPINŮ!</b> Bonus se zdá jako dárek...`;
             } else if(win > 0) {
                 if(win < bet) {
-                    document.getElementById('log').innerHTML = `<b style="color:var(--danger)">KLAMNÁ VÝHRA:</b> Vyhrál jsi ${win} Kč, ale Tvá sázka byla ${bet} Kč. Automat to prezentuje jako výhru, vítězná melodie zahrála. Ty jsi ale ve skutečnosti ve ztrátě. Tyto pseudovýhry jsou do hry začleněny záměrně, aby hráče udržovaly při hře. Co to dělá s Tebou?`;
+                    document.getElementById('log').innerHTML = `<b style="color:var(--danger)">KLAMNÁ VÝHRA:</b> Vyhrál jsi ${win} Kč...`;
                     playWinSound(1);
                 } else {
-                    document.getElementById('log').innerHTML = `<b style="color:var(--success)">VÝHRA ${win} Kč!</b> Výhra je ze statistického hlediska velmi nepravděpodobnou událostí – podívej se na šance, že padnou jednotlivé výherní kombinace: 🍋 1 : 94, 🔔 1 : 1 000, 💎 1 : 15 625, 7️⃣ JACKPOT 1 : 296 296`; 
+                    document.getElementById('log').innerHTML = `<b style="color:var(--success)">VÝHRA ${win} Kč!</b>...`; 
                     playWinSound(win>=bet*10?3:2);
                 }
             } else {
-                // Rozšířená logika Near Miss (v8.4+)
                 const twoOnLine = (mid[0] === mid[1] || mid[1] === mid[2] || mid[0] === mid[2]);
                 const threeOnTop = (top[0] === top[1] && top[1] === top[2]);
                 const threeOnBot = (bot[0] === bot[1] && bot[1] === bot[2]);
 
                 if(twoOnLine || threeOnTop || threeOnBot) { 
-                    document.getElementById('log').innerHTML = `<b style="color:var(--primary)">SKORO!</b> Právě jsi zažil těsnou prohru, kdy Ti výhra jen o kousek utekla. Běžný automat by Tě na to nejspíš neupozornil, ale Ty si toho všimneš. Cílem je v hráči vyvolat pocit, že to příště přece musí vyjít... Co to dělá s Tebou?`; 
+                    document.getElementById('log').innerHTML = `<b style="color:var(--primary)">SKORO!</b>...`; 
                     playNearMissSound(); 
                 } else { 
                     document.getElementById('log').innerHTML = isBonus ? "Bonus běží..." : "Zkus to znovu."; 
