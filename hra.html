@@ -89,29 +89,35 @@
     <div class="setup-card" style="max-width: 600px; text-align: left; padding: 25px; line-height: 1.6;">
         <h2 style="color:var(--primary); text-align: center; margin-bottom: 20px;">DŮLEŽITÉ UPOZORNĚNÍ</h2>
         
-        <p>Tato aplikace je <strong>edukativní simulátor</strong>. Jejím cílem není simulovat hazardní hru pro zábavu, ale demonstrovat mechanismy, které činí výherní automaty atraktivními a potenciálně návykovými.</p>
+<p>Tato aplikace je <strong>edukativní simulátor</strong>. Jejím cílem není simulovat hazardní hru pro zábavu, ale demonstrovat mechanismy, které činí výherní automaty atraktivními a potenciálně návykovými.</p>
         
         <h3 style="color:var(--primary); font-size: 1.1em;">Mechanika a psychologie:</h3>
         <ul style="padding-left: 20px; margin-bottom: 20px; font-size: 0.9em; color: #ccc;">
-            <li><strong>RTP (Návratnost):</strong> Teoretické $RTP = 95,1\,\%$. To znamená, že z každé vsazené 100 Kč se v dlouhodobém průměru vrací 95,10 Kč.</li>
-            <li><strong>Design:</strong> Hra využívá specifické zvukové frekvence a vizuální efekty pro stimulaci dopaminu.</li>
-            <li><strong>Klamné výhry:</strong> Např. třešně vrací jen $0,8\times$ sázky. I při zvuku výhry peníze ztrácíte.</li>
+            <li><strong>RTP (Návratnost):</strong> Teoretické $RTP = 95,1\,\%$. To znamená, že z každé vsazené 100 Kč se v dlouhodobém průměru vrací 95,10 Kč. U jednotlivého hráče však může dojít k rychlé a úplné ztrátě vkladu.</li>
+            <li><strong>Design:</strong> Hra využívá specifické zvukové frekvence a vizuální efekty (tzv. "cukrová vata"), které mají v mozku stimulovat dopamin a udržet hráče ve hře.</li>
+            <li><strong>Klamné výhry:</strong> Např. třešně vrací jen $0,8\times$ sázky. I když slyšíte zvuk výhry, ve skutečnosti peníze ztrácíte.</li>
         </ul>
 
-        <div style="overflow-x: auto;">
-            <table style="width: 100%; font-size: 0.85em; color: #ddd; border-collapse: collapse; margin-bottom: 20px; text-align: center;">
-                <tr style="border-bottom: 1px solid #444;">
-                    <th style="padding: 5px;">Symbol</th><th>Pravděpodobnost</th><th>Výhra</th>
-                </tr>
-                <tr><td>7️⃣ Jackpot</td><td>1 : 296 296</td><td>2000x</td></tr>
-                <tr><td>⭐ Bonus</td><td>1 : 186</td><td>10 FS</td></tr>
-                <tr><td>🍒 Třešně</td><td>1 : 11</td><td>0.8x</td></tr>
-            </table>
-        </div>
+        <h3 style="color:var(--primary); font-size: 1.1em;">Tabulka pravděpodobností (1 : X):</h3>
+        <table style="width: 100%; font-size: 0.85em; color: #ddd; border-collapse: collapse; margin-bottom: 20px; text-align: center;">
+            <tr style="border-bottom: 1px solid #444;">
+                <th style="padding: 5px;">Symbol</th><th>Pravděpodobnost</th><th>Výhra</th>
+            </tr>
+            <tr><td>7️⃣ Jackpot</td><td>1 : 296 296</td><td>2000x</td></tr>
+            <tr><td>⭐ Bonus</td><td>1 : 186</td><td>10 FS</td></tr>
+            <tr><td>🍒 Třešně</td><td>1 : 11</td><td>0.8x</td></tr>
+        </table>
 
-        <p style="font-size: 0.9em;">Nastavte si <strong>herní limity</strong> jako nástroj zodpovědného hraní.</p>
+        <p style="font-size: 0.95em;">V následujícím kroku budete vyzváni k <strong>nastavení herních limitů</strong>. V reálném prostředí jsou provozovatelé ze zákona povinni vám tyto limity nabídnout jako nástroj zodpovědného hraní.</p>
 
-        <button onclick="proceedToLimits()">ROZUMÍM A CHCI NASTAVIT LIMITY</button>
+        <button onclick="proceedToLimits()" style="
+            width: 100%; padding: 18px; border-radius: 12px; border: none; cursor: pointer;
+            background: linear-gradient(to bottom, #ffcc00 0%, #ff9900 100%);
+            color: black; font-weight: bold; font-size: 18px; text-transform: uppercase;
+            box-shadow: 0 5px 0 #cc7a00, 0 8px 15px rgba(0,0,0,0.4); transition: all 0.1s;
+            margin-top: 10px;">
+            ROZUMÍM A CHCI NASTAVIT LIMITY
+        </button>
     </div>
 </div>
 
