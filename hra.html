@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edu-Slot Luxe v8.4 (Restored & Expanded)</title>
+    <title>Edu-Slot Luxe</title>
     <style>
         :root { 
             --primary: #ffcc00; --danger: #ff4757; --success: #2ed573;
@@ -90,7 +90,7 @@
         <h2 style="color:var(--primary); text-align: center; margin-bottom: 20px;">DŮLEŽITÉ UPOZORNĚNÍ</h2>
         
 <p>Tato aplikace je <strong>edukativní simulátor</strong>. Jejím cílem není simulovat hazardní hru pro zábavu, ale demonstrovat mechanismy, které činí výherní automaty atraktivními a potenciálně návykovými.</p>
-<p>Hazardní hry mohou způsobovat závislost a nesou s sebou riziko značné ztráty peněz. Nejbezpečnější je je vůbec nehrát. Pokud už je hrajeme, je vhodné si nastavit bezpečnostní opatření, které ukazuje tato hra.</p>
+<p>Hazardní hry mohou způsobovat závislost a nesou s sebou riziko značné ztráty peněz. Nejbezpečnější je je vůbec nehrát. Pokud už je hrajeme, je vhodné si nastavit bezpečnostní opatření, která ukazuje tato hra.</p>
         
         <h3 style="color:var(--primary); font-size: 1.1em;">Mechanika a psychologie:</h3>
         <ul style="padding-left: 20px; margin-bottom: 20px; font-size: 0.9em; color: #ccc;">
@@ -114,7 +114,7 @@
         </table>
 
         <p style="font-size: 0.95em;">V následujícím kroku budete vyzváni k <strong>nastavení herních limitů</strong>. V reálném prostředí jsou provozovatelé ze zákona povinni vám tyto limity nabídnout jako nástroj zodpovědného hraní. Hráči si jimi mohou omezit maximální vloženou či prohranou částku nebo čas strávený u hry za určité období.</p> 
-        <p style="font-size: 0.95em;">Ve hře je také tlačítko <strong>"Panic button"</strong>, kterým se můžete ze hry okamžitě vyloučit – v realitě na 48 hodin, nebo natrvalo.</p>
+        <p style="font-size: 0.95em;">Ve hře je také tlačítko <strong>"Panic button"</strong>, kterým se můžete ze hry okamžitě vyloučit – v realitě na 48 hodin, nebo natrvalo, a to u všech provozovatelů.</p>
 
         <button onclick="proceedToLimits()" style="
             width: 100%; padding: 18px; border-radius: 12px; border: none; cursor: pointer;
@@ -144,7 +144,7 @@
         </div>
     </div>
 
-    <h1 style="color:var(--primary); text-shadow: 0 0 10px rgba(255,204,0,0.5); letter-spacing: 2px; text-align: center;">💎 EDU-SLOT LUXE v8.4 💎</h1>
+    <h1 style="color:var(--primary); text-shadow: 0 0 10px rgba(255,204,0,0.5); letter-spacing: 2px; text-align: center;">💎 EDU-SLOT LUXE 💎</h1>
 
     <div class="main-layout">
         <div class="side-panel">
@@ -179,7 +179,7 @@
                 <button id="spin-btn" onclick="handleSpin()">ZATOČIT</button>
             </div>
             
-            <div class="edu-log" id="log">Vítejte ve hře. V horní části automatu sledujte svůj aktuální kredit. V dolní části stránky vidíte celkové vklady a prohry a své limity. Můžete si taky kredit dobít nebo se ze hry vyloučit tlačítkem Panic button.</div>
+            <div class="edu-log" id="log">Vítej ve hře. V horní části automatu sleduj svůj aktuální kredit. V dolní části stránky vidíš celkové vklady, prohry a výhry a své limity. Můžeš si taky kredit dobít nebo se ze hry vyloučit tlačítkem Panic button.</div>
             
             <div class="rtp-info">
                 Teoretické RTP: 95.1 % | <span id="rtp-session" style="color:#aaa">RTP sezení: 0 %</span>
@@ -288,7 +288,7 @@
                 document.getElementById('log').innerHTML = `<b style="color:var(--bonus)">BONUS: 10 FREE SPINŮ!</b> Bonus se zdá jako dárek – pár protočení navíc, které máš od herny gratis. Ve skutečnosti jde ale o výhru, která je automaticky vložena do dalších protočení. Každý automat je totiž nastaven tak, aby část z celkových vložených peněz, které jsou určeny na výhry (RTP), nevyplatil jako výhru, ale právě jako bonus.`;
             } else if(win > 0) {
                 if(win < bet) {
-                    document.getElementById('log').innerHTML = `<b style="color:var(--danger)">KLAMNÁ VÝHRA:</b> Vyhrál jsi ${win} Kč, ale Tvá sázka byla ${bet} Kč. Automat to prezentuje jako výhru, vítězná melodie zahrála. Ty jsi ale ve skutečnosti ve ztrátě. Tyto pseudovýhry jsou do hry začleněny záměrně, aby hráče udržovaly při hře. Co to dělá s Tebou?`;
+                    document.getElementById('log').innerHTML = `<b style="color:var(--danger)">KLAMNÁ VÝHRA:</b> Vyhrál/a jsi ${win} Kč, ale Tvá sázka byla ${bet} Kč. Automat to prezentuje jako výhru, vítězná melodie zahrála. Ty jsi ale ve skutečnosti ve ztrátě. Tyto pseudovýhry jsou do hry začleněny záměrně, aby hráče udržovaly při hře. Co to dělá s Tebou?`;
                     playWinSound(1);
                 } else {
                     document.getElementById('log').innerHTML = `<b style="color:var(--success)">VÝHRA ${win} Kč!</b> Výhra je ze statistického hlediska velmi nepravděpodobnou událostí – podívej se na šance, že padnou jednotlivé výherní kombinace: 🍋 1 : 94, 🔔 1 : 1 000, 💎 1 : 15 625, 7️⃣ JACKPOT 1 : 296 296. Jak se teď cítíš?`; 
@@ -300,10 +300,10 @@
                 const threeOnBot = (bot[0] === bot[1] && bot[1] === bot[2]);
 
                 if(twoOnLine || threeOnTop || threeOnBot) { 
-                    document.getElementById('log').innerHTML = `<b style="color:var(--primary)">SKORO!</b> Právě jsi zažil těsnou prohru, kdy Ti výhra jen o kousek utekla. Běžný automat by Tě na to nejspíš neupozornil, ale Ty si toho všimneš. Cílem je v hráči vyvolat pocit, že to příště přece musí vyjít... Co to dělá s Tebou?`; 
+                    document.getElementById('log').innerHTML = `<b style="color:var(--primary)">SKORO!</b> Právě jsi zažil/a těsnou prohru, kdy Ti výhra jen o kousek utekla. Běžný automat by Tě na to nejspíš neupozornil, ale Ty si toho všimneš. Cílem je v hráči vyvolat pocit, že to příště přece musí vyjít... Co to dělá s Tebou?`; 
                     playNearMissSound(); 
                 } else { 
-                    document.getElementById('log').innerHTML = isBonus ? "Bonus běží..." : "Zkus to znovu."; 
+                    document.getElementById('log').innerHTML = isBonus ? "Bonus běží..." : "Prohra. Co teď uděláš dál?"; 
                     if(!isBonus) playLoseSound(); 
                 }
             }
