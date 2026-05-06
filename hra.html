@@ -9,10 +9,6 @@
             --primary: #ffcc00; --danger: #ff4757; --success: #2ed573;
             --bg: #0f0c29; --panel: rgba(255, 255, 255, 0.05); --bonus: #6a0dad;
         }
-
-        /* Zajištění správného výpočtu šířek */
-        * { box-sizing: border-box; }
-
         body { 
             font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); 
             color: white; display: flex; flex-direction: column; align-items: center; padding: 10px; margin: 0; min-height: 100vh; transition: background 0.5s;
@@ -21,10 +17,8 @@
         
         #setup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; display: flex; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; backdrop-filter: blur(5px); }
         .setup-card { background: #1a1a1a; padding: 30px; border-radius: 20px; border: 2px solid var(--primary); width: 100%; max-width: 400px; text-align: center; box-shadow: 0 0 30px rgba(255, 204, 0, 0.3); }
-        
-        /* Úprava pro textová pole v overlay na mobilu */
-        .setup-card input { width: 100%; padding: 12px; margin-top: 8px; background: #222; color: white; border: 1px solid #444; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
         .setup-card label { display: block; margin-bottom: 20px; color: #ddd; font-weight: bold; font-size: 16px; text-align: left; }
+        .setup-card input { width: 100%; padding: 12px; margin-top: 8px; background: #222; color: white; border: 1px solid #444; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
         
         .setup-card button { 
             width: 100%; padding: 15px; border-radius: 12px; border: none; cursor: pointer;
@@ -36,81 +30,76 @@
         .setup-card button:active { box-shadow: 0 2px 0 #cc7a00; transform: translateY(3px); }
 
         /* RESPONSIVNÍ LAYOUT */
-        .main-layout { 
-            display: flex; 
-            gap: 20px; 
-            max-width: 1100px; 
-            width: 100%; 
-            flex-direction: row; 
-            margin-top: 20px; 
-        }
-
-        /* Mobilní zobrazení (pod sebou) */
-        @media (max-width: 900px) {
-            .main-layout { flex-direction: column; align-items: center; }
-            .side-panel { width: 100%; order: 2; }
-            .game-container { width: 100%; order: 1; padding: 15px; }
+        .main-layout { display: flex; gap: 20px; max-width: 1100px; width: 100%; flex-direction: row; margin-top: 20px; }
+        @media (max-width: 850px) {
+            .main-layout { flex-direction: column-reverse; }
             h1 { font-size: 1.5rem; text-align: center; }
         }
 
         .side-panel { background: var(--panel); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); flex: 1; min-width: 260px; display: flex; flex-direction: column; }
         .side-panel button { width: 100%; margin-bottom: 10px; font-weight: bold; padding: 15px; border-radius: 10px; cursor: pointer; border: none; text-transform: uppercase; transition: 0.3s; }
         
-        .game-container { background: radial-gradient(circle at center, #1e1e1e 0%, #0a0a0a 100%); padding: 25px; border-radius: 30px; border: 8px solid #2c2c2c; flex: 2; text-align: center; position: relative; max-width: 100%; }
+        .game-container { background: radial-gradient(circle at center, #1e1e1e 0%, #0a0a0a 100%); padding: 25px; border-radius: 30px; border: 8px solid #2c2c2c; flex: 2; text-align: center; position: relative; width: 100%; box-sizing: border-box; }
         .game-container.bonus-active { border-color: var(--bonus); box-shadow: 0 0 40px var(--bonus); }
         
-        .reels-grid { display: flex; justify-content: space-around; background: #000; padding: 15px; border-radius: 15px; border: 3px solid #444; position: relative; height: 330px; overflow: hidden; gap: 10px; max-width: 100%; }
-        
-        /* Přizpůsobení velikosti válců pro velmi malé displeje */
-        @media (max-width: 450px) {
-            .reels-grid { padding: 5px; gap: 5px; }
-            .symbol { font-size: 45px; }
-        }
-
+        /* RESPONSIVNÍ VÁLCE */
+        .reels-grid { display: flex; justify-content: space-around; background: #000; padding: 15px; border-radius: 15px; border: 3px solid #444; position: relative; height: 330px; overflow: hidden; gap: 10px; }
         .reel { flex: 1; height: 330px; background: #fff; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid #333; }
         .reel-symbols { position: absolute; width: 100%; display: flex; flex-direction: column; will-change: transform; top: 0; }
         .symbol { font-size: 60px; height: 110px; line-height: 110px; width: 100%; text-align: center; color: black; border-bottom: 1px solid #ddd; background: white; box-sizing: border-box; }
         
+        @media (max-width: 500px) {
+            .reels-grid { height: 210px; padding: 8px; gap: 5px; }
+            .reel { height: 210px; }
+            .symbol { font-size: 40px; height: 70px; line-height: 70px; }
+            .winning-line-marker { height: 70px !important; top: 70px !important; }
+        }
+
         .winning-line-marker { position: absolute; top: 110px; left: 0; width: 100%; height: 110px; border-top: 3px solid var(--primary); border-bottom: 3px solid var(--primary); background: rgba(255, 204, 0, 0.05); pointer-events: none; z-index: 10; }
-        .bonus-badge { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--bonus); color: white; padding: 5px 20px; border-radius: 20px; font-weight: bold; display: none; z-index: 20; box-shadow: 0 0 15px var(--bonus); }
+        .bonus-badge { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--bonus); color: white; padding: 5px 20px; border-radius: 20px; font-weight: bold; display: none; z-index: 20; box-shadow: 0 0 15px var(--bonus); width: max-content; }
         
         .highlight-win { background: #fffbe6 !important; box-shadow: inset 0 0 30px var(--primary); animation: pulse-win 0.5s infinite alternate; }
         @keyframes pulse-win { from { opacity: 1; } to { opacity: 0.8; } }
         
-        .controls-row { display: flex; gap: 10px; margin-top: 25px; align-items: center; justify-content: center; flex-wrap: wrap; }
+        .controls-row { display: flex; gap: 10px; margin-top: 25px; align-items: center; justify-content: center; }
+        @media (max-width: 500px) {
+            .controls-row { flex-direction: column; width: 100%; }
+            #bet-amount, #spin-btn { width: 100%; }
+        }
         
         #spin-btn { 
             background: linear-gradient(to bottom, #ffcc00 0%, #ff9900 100%); 
             color: black; font-size: 26px; font-weight: bold; padding: 18px; border-radius: 12px; border: none; cursor: pointer; flex-grow: 2; text-transform: uppercase; box-shadow: 0 5px 0 #cc7a00, 0 8px 15px rgba(0,0,0,0.4); transition: all 0.1s;
-            min-width: 150px;
         }
         #spin-btn:active { box-shadow: 0 2px 0 #cc7a00; transform: translateY(3px); }
         #spin-btn:disabled { background: #444; color: #777; box-shadow: none; transform: none; cursor: default; }
         
-        .panic-btn { background: var(--danger); color: white; margin-top: auto; font-size: 14px; }
+        .panic-btn { background: var(--danger); color: white; margin-top: 10px; font-size: 14px; }
         .stat-box { background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid var(--primary); font-size: 14px; text-align: left; }
         .edu-log { margin-top: 20px; padding: 15px; background: rgba(0, 114, 255, 0.1); border-radius: 12px; min-height: 80px; text-align: left; border-left: 6px solid #0072ff; font-size: 14px; color: #e0e0e0; }
         .rtp-info { margin-top: 15px; font-size: 12px; color: #777; text-align: center; }
+
+        /* OPRAVA PŘEKRYVŮ PRO MOBILY */
+        #edu-intro-overlay .setup-card { max-width: 90%; max-height: 90vh; overflow-y: auto; }
     </style>
 </head>
 <body>
 
 <div id="edu-intro-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 200; display: flex; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; backdrop-filter: blur(8px); overflow-y: auto;">
-    <div class="setup-card" style="max-width: 600px; text-align: left; padding: 30px; line-height: 1.6;">
+    <div class="setup-card" style="max-width: 600px; text-align: left; padding: 25px; line-height: 1.6;">
         <h2 style="color:var(--primary); text-align: center; margin-bottom: 20px;">DŮLEŽITÉ UPOZORNĚNÍ</h2>
         
         <p>Tato aplikace je <strong>edukativní simulátor</strong>. Jejím cílem není simulovat hazardní hru pro zábavu, ale demonstrovat mechanismy, které činí výherní automaty atraktivními a potenciálně návykovými.</p>
         
         <h3 style="color:var(--primary); font-size: 1.1em;">Mechanika a psychologie:</h3>
         <ul style="padding-left: 20px; margin-bottom: 20px; font-size: 0.9em; color: #ccc;">
-            <li><strong>RTP (Návratnost):</strong> Teoretické $RTP = 95,1\,\%$. To znamená, že z každé vsazené 100 Kč se v dlouhodobém průměru vrací 95,10 Kč. U jednotlivého hráče však může dojít k rychlé a úplné ztrátě vkladu.</li>
-            <li><strong>Design:</strong> Hra využívá specifické zvukové frekvence a vizuální efekty (tzv. "cukrová vata"), které mají v mozku stimulovat dopamin a udržet hráče ve hře.</li>
-            <li><strong>Klamné výhry:</strong> Např. třešně vrací jen $0,8\times$ sázky. I když slyšíte zvuk výhry, ve skutečnosti peníze ztrácíte.</li>
+            <li><strong>RTP (Návratnost):</strong> Teoretické $RTP = 95,1\,\%$. To znamená, že z každé vsazené 100 Kč se v dlouhodobém průměru vrací 95,10 Kč.</li>
+            <li><strong>Design:</strong> Hra využívá specifické zvukové frekvence a vizuální efekty pro stimulaci dopaminu.</li>
+            <li><strong>Klamné výhry:</strong> Např. třešně vrací jen $0,8\times$ sázky. I při zvuku výhry peníze ztrácíte.</li>
         </ul>
 
-        <h3 style="color:var(--primary); font-size: 1.1em;">Tabulka pravděpodobností (1 : X):</h3>
         <div style="overflow-x: auto;">
-            <table style="width: 100%; font-size: 0.85em; color: #ddd; border-collapse: collapse; margin-bottom: 20px; text-align: center; min-width: 300px;">
+            <table style="width: 100%; font-size: 0.85em; color: #ddd; border-collapse: collapse; margin-bottom: 20px; text-align: center;">
                 <tr style="border-bottom: 1px solid #444;">
                     <th style="padding: 5px;">Symbol</th><th>Pravděpodobnost</th><th>Výhra</th>
                 </tr>
@@ -120,11 +109,9 @@
             </table>
         </div>
 
-        <p style="font-size: 0.95em;">V následujícím kroku budete vyzváni k <strong>nastavení herních limitů</strong>. V reálném prostředí jsou provozovatelé ze zákona povinni vám tyto limity nabídnout jako nástroj zodpovědného hraní.</p>
+        <p style="font-size: 0.9em;">Nastavte si <strong>herní limity</strong> jako nástroj zodpovědného hraní.</p>
 
-        <button onclick="proceedToLimits()">
-            ROZUMÍM A CHCI NASTAVIT LIMITY
-        </button>
+        <button onclick="proceedToLimits()">ROZUMÍM A CHCI NASTAVIT LIMITY</button>
     </div>
 </div>
 
@@ -134,6 +121,7 @@
         document.getElementById('setup-overlay').style.display = 'flex';
     }
 </script>
+
     <div id="setup-overlay">
         <div class="setup-card">
             <h2 style="color:var(--primary); margin:0 0 25px 0; letter-spacing: 1px;">NASTAVENÍ SIMULACE</h2>
@@ -144,7 +132,7 @@
         </div>
     </div>
 
-    <h1 style="color:var(--primary); text-shadow: 0 0 10px rgba(255,204,0,0.5); letter-spacing: 2px;">💎 EDU-SLOT LUXE v8.4 💎</h1>
+    <h1 style="color:var(--primary); text-shadow: 0 0 10px rgba(255,204,0,0.5); letter-spacing: 2px; text-align: center;">💎 EDU-SLOT LUXE v8.4 💎</h1>
 
     <div class="main-layout">
         <div class="side-panel">
@@ -163,7 +151,7 @@
         <div class="game-container" id="game-ui">
             <div class="bonus-badge" id="bonus-badge">FREE SPINS (2x WIN): <span id="fs-count">0</span></div>
             <div style="font-size: 14px; color: #aaa; text-transform: uppercase;">Zůstatek na účtu</div>
-            <div style="font-size: 42px; font-weight: bold; color: var(--primary); margin-bottom: 20px;"><span id="balance">0</span> Kč</div>
+            <div style="font-size: clamp(24px, 8vw, 42px); font-weight: bold; color: var(--primary); margin-bottom: 20px;"><span id="balance">0</span> Kč</div>
             
             <div class="reels-grid">
                 <div class="winning-line-marker"></div>
@@ -223,7 +211,11 @@
         reelWeights.forEach((w,idx) => { for(let s in w) { for(let i=0;i<w[s];i++) pools[idx].push(s); } });
 
         let balance=0, totalDep=0, totalBet=0, totalWin=0, maxVkl=0, maxPro=0, freeSpinsLeft=0;
-        const symbolH = 110;
+        
+        // Funkce pro získání aktuální výšky symbolu (dynamická pro responsivitu)
+        function getSymbolHeight() {
+            return document.querySelector('.symbol').offsetHeight;
+        }
 
         function startGame() {
             if(audioCtx.state==='suspended') audioCtx.resume();
@@ -242,6 +234,8 @@
         function handleSpin() {
             const isBonus = freeSpinsLeft > 0;
             const currentBet = parseInt(document.getElementById('bet-amount').value);
+            const symH = getSymbolHeight();
+
             if(!isBonus) {
                 if(balance < currentBet) return;
                 balance -= currentBet; totalBet += currentBet;
@@ -262,7 +256,7 @@
                 r.style.transition = 'none'; r.style.transform = 'translateY(0)';
                 setTimeout(() => { 
                     r.style.transition = `transform ${2+i*0.4}s cubic-bezier(0.15, 0.01, 0.1, 1)`; 
-                    r.style.transform = `translateY(-${(strip.length-4)*symbolH}px)`; 
+                    r.style.transform = `translateY(-${(strip.length-4)*symH}px)`; 
                 }, 50);
             }
             setTimeout(()=>finalizeSpin(top, results, bot, currentBet, isBonus), 3500);
@@ -279,13 +273,13 @@
 
             if(trigger) {
                 freeSpinsLeft += 10; playTriggerSound();
-                document.getElementById('log').innerHTML = `<b style="color:var(--bonus)">BONUS: 10 FREE SPINŮ!</b> Bonus se zdá jako dárek...`;
+                document.getElementById('log').innerHTML = `<b style="color:var(--bonus)">BONUS: 10 FREE SPINŮ!</b> Bonus se zdá jako dárek. Ve skutečnosti jde o výhru automaticky vloženou do dalších protočení z RTP banku.`;
             } else if(win > 0) {
                 if(win < bet) {
-                    document.getElementById('log').innerHTML = `<b style="color:var(--danger)">KLAMNÁ VÝHRA:</b> Vyhrál jsi ${win} Kč...`;
+                    document.getElementById('log').innerHTML = `<b style="color:var(--danger)">KLAMNÁ VÝHRA:</b> Vyhrál jsi ${win} Kč, ale sázka byla ${bet} Kč. Jsi ve ztrátě, i když automat slaví.`;
                     playWinSound(1);
                 } else {
-                    document.getElementById('log').innerHTML = `<b style="color:var(--success)">VÝHRA ${win} Kč!</b>...`; 
+                    document.getElementById('log').innerHTML = `<b style="color:var(--success)">VÝHRA ${win} Kč!</b> Výhra je statisticky vzácná. Šance: 🍋 1:94, 🔔 1:1000, 💎 1:15625, 7️⃣ 1:296296`; 
                     playWinSound(win>=bet*10?3:2);
                 }
             } else {
@@ -294,7 +288,7 @@
                 const threeOnBot = (bot[0] === bot[1] && bot[1] === bot[2]);
 
                 if(twoOnLine || threeOnTop || threeOnBot) { 
-                    document.getElementById('log').innerHTML = `<b style="color:var(--primary)">SKORO!</b>...`; 
+                    document.getElementById('log').innerHTML = `<b style="color:var(--primary)">SKORO!</b> Těsná prohra vyvolává pocit, že "příště už to vyjde". To je psychologický trik.`; 
                     playNearMissSound(); 
                 } else { 
                     document.getElementById('log').innerHTML = isBonus ? "Bonus běží..." : "Zkus to znovu."; 
@@ -339,4 +333,5 @@
         function panicStop() { if(confirm("Ukončit hru?")) location.reload(); }
     </script>
 </body>
+</html>
 </html>
