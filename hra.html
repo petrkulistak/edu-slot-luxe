@@ -93,7 +93,7 @@
         
         <h3 style="color:var(--primary); font-size: 1.1em;">Mechanika a psychologie:</h3>
         <ul style="padding-left: 20px; margin-bottom: 20px; font-size: 0.9em; color: #ccc;">
-            <li><strong>RTP (Návratnost):</strong> Teoretické $RTP = 95,1 %. To znamená, že z každé vsazené 100 Kč se v dlouhodobém průměru vrací 95,10 Kč. U jednotlivého hráče však může dojít k rychlé a úplné ztrátě vkladu. Zároveň pokud ve hře dále pokračujeme, mechanismus nám z každé vložené stokoruny průměrně pokaždé "ují" 4,9 Kč.</li>
+            <li><strong>RTP (Návratnost):</strong> Teoretické RTP = 95,1 %. To znamená, že z každé vsazené 100 Kč se v dlouhodobém průměru vrací 95,10 Kč. U jednotlivého hráče však může dojít k rychlé a úplné ztrátě vkladu. Zároveň pokud ve hře dále pokračujeme, mechanismus nám z každé vložené stokoruny průměrně pokaždé "ují" 4,9 Kč.</li>
             <li><strong>House edge:</strong> To je onen kousek z každé vložené stokoruny, kterou si kasino průměrně nechá. V tomto případě je to 4,9 %.</li>
             <li><strong>Design:</strong> Hra využívá specifické zvukové frekvence a vizuální efekty (tzv. "cukrová vata"), které mají v mozku stimulovat dopamin a udržet hráče ve hře.</li>
             <li><strong>Klamné výhry:</strong> Např. třešně vrací jen 0,8násobek sázky. I když slyšíte zvuk výhry, ve skutečnosti peníze ztrácíte.</li>
@@ -106,9 +106,9 @@
                 <th style="padding: 5px;">Symbol</th><th>Pravděpodobnost</th><th>Výhra</th>
             </tr>
             <tr><td>7️⃣ Jackpot</td><td>1 : 296 296</td><td>2000x</td></tr>
-            <tr><td>💎 Diamant /td><td>1 : 15 625</td><td>200x</td></tr>
-            <tr><td>🔔 Zvonek /td><td>1 : 1 000</td><td>50x</td></tr>
-            <tr><td>🍋 Citron /td><td>1 : 94</td><td>10x</td></tr>
+            <tr><td>💎 Diamant <td>1 : 15 625</td><td>200x</td></tr>
+            <tr><td>🔔 Zvonek <td>1 : 1 000</td><td>50x</td></tr>
+            <tr><td>🍋 Citron <td>1 : 94</td><td>10x</td></tr>
             <tr><td>🍒 Třešně</td><td>1 : 11</td><td>0.8x</td></tr>
             <tr><td>⭐ Bonus</td><td>1 : 186</td><td>10 protočení navíc</td></tr>
         </table>
@@ -284,13 +284,13 @@
 
             if(trigger) {
                 freeSpinsLeft += 10; playTriggerSound();
-                document.getElementById('log').innerHTML = `<b style="color:var(--bonus)">BONUS: 10 FREE SPINŮ!</b> Bonus se zdá jako dárek. Ve skutečnosti jde o výhru automaticky vloženou do dalších protočení z RTP banku.`;
+                document.getElementById('log').innerHTML = `<b style="color:var(--bonus)">BONUS: 10 FREE SPINŮ!</b> Bonus se zdá jako dárek – pár protočení navíc, které máš od herny gratis. Ve skutečnosti jde ale o výhru, která je automaticky vložena do dalších protočení. Každý automat je totiž nastaven tak, aby část z celkových vložených peněz, které jsou určeny na výhry (RTP), nevyplatil jako výhru, ale právě jako bonus.`;
             } else if(win > 0) {
                 if(win < bet) {
-                    document.getElementById('log').innerHTML = `<b style="color:var(--danger)">KLAMNÁ VÝHRA:</b> Vyhrál jsi ${win} Kč, ale sázka byla ${bet} Kč. Jsi ve ztrátě, i když automat slaví.`;
+                    document.getElementById('log').innerHTML = `<b style="color:var(--danger)">KLAMNÁ VÝHRA:</b> Vyhrál jsi ${win} Kč, ale Tvá sázka byla ${bet} Kč. Automat to prezentuje jako výhru, vítězná melodie zahrála. Ty jsi ale ve skutečnosti ve ztrátě. Tyto pseudovýhry jsou do hry začleněny záměrně, aby hráče udržovaly při hře. Co to dělá s Tebou?`;
                     playWinSound(1);
                 } else {
-                    document.getElementById('log').innerHTML = `<b style="color:var(--success)">VÝHRA ${win} Kč!</b> Výhra je statisticky vzácná. Šance: 🍋 1:94, 🔔 1:1000, 💎 1:15625, 7️⃣ 1:296296`; 
+                    document.getElementById('log').innerHTML = `<b style="color:var(--success)">VÝHRA ${win} Kč!</b> Výhra je ze statistického hlediska velmi nepravděpodobnou událostí – podívej se na šance, že padnou jednotlivé výherní kombinace: 🍋 1 : 94, 🔔 1 : 1 000, 💎 1 : 15 625, 7️⃣ JACKPOT 1 : 296 296. Jak se teď cítíš?`; 
                     playWinSound(win>=bet*10?3:2);
                 }
             } else {
@@ -299,7 +299,7 @@
                 const threeOnBot = (bot[0] === bot[1] && bot[1] === bot[2]);
 
                 if(twoOnLine || threeOnTop || threeOnBot) { 
-                    document.getElementById('log').innerHTML = `<b style="color:var(--primary)">SKORO!</b> Těsná prohra vyvolává pocit, že "příště už to vyjde". To je psychologický trik.`; 
+                    document.getElementById('log').innerHTML = `<b style="color:var(--primary)">SKORO!</b> Právě jsi zažil těsnou prohru, kdy Ti výhra jen o kousek utekla. Běžný automat by Tě na to nejspíš neupozornil, ale Ty si toho všimneš. Cílem je v hráči vyvolat pocit, že to příště přece musí vyjít... Co to dělá s Tebou?`; 
                     playNearMissSound(); 
                 } else { 
                     document.getElementById('log').innerHTML = isBonus ? "Bonus běží..." : "Zkus to znovu."; 
